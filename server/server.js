@@ -1,3 +1,4 @@
+// server.js – Express server for tracking pixel
 const express = require('express');
 const app = express();
 const port = 3000;
@@ -14,3 +15,16 @@ app.get('/pixel', (req, res) => {
     'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGNgYAAAAAMAASsJTYQAAAAASUVORK5CYII=', 
     'base64'
   );
+  res.writeHead(200, {
+    'Content-Type': 'image/png',
+    'Content-Length': imgData.length,
+    'Cache-Control': 'no-cache',
+    'Access-Control-Allow-Origin': '*'  // Allow any origin
+  });
+  res.end(imgData);
+});
+
+// Start the server
+app.listen(port, () => {
+  console.log(`Pixel tracker server running at http://localhost:${port}`);
+});
